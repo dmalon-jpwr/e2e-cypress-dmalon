@@ -21,7 +21,7 @@ describe('TODO App', () => {
     cy.get(`[data-automationid="about-page"]`).should('have.text', 'About').should('have.attr', 'href', '/about');
   });
 
-  it('Todo items', () => {
+  it('Todo items adding', () => {
     cy.visit('/todo');
 
     cy.get('[data-cy="todo-text"]').type('item 1');
@@ -31,5 +31,34 @@ describe('TODO App', () => {
     cy.get('[data-cy="add-btn"]').click();
 
     cy.get(S.todoItem).should('have.length', 2);
+  });
+
+  it("Todo items deleting", () => {
+    cy.visit('/todo');
+
+    cy.get('[data-cy="todo-text"]').type('item 1');
+    cy.get('[data-cy="add-btn"]').click();
+
+    cy.get('[data-cy="todo-text"]').type('item 2');
+    cy.get('[data-cy="add-btn"]').click();
+
+    cy.get('[data-cy="delete-btn"]').last().click();
+
+    cy.get(S.todoItem).should('have.length', 1);
+  });
+
+  it("Todo items editing", () => {
+    cy.visit('/todo');
+
+    cy.get('[data-cy="todo-text"]').type('item 1');
+    cy.get('[data-cy="add-btn"]').click();
+    cy.get('[data-cy="todo-text"]').type('item 2');
+    cy.get('[data-cy="add-btn"]').click();
+
+    cy.get('[data-cy="edit-btn"]').last().click();
+    cy.get('[data-cy="edit-text"]').last().type('34');
+    cy.get('[data-cy="save-btn"]').last().click();
+
+    cy.get('[data-cy="label"]').last().should('have.text','item 234');
   });
 });
