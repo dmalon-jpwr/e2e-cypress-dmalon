@@ -14,7 +14,7 @@
 
   <section>
     <div *ngFor="let item of filteredList" class="field-checkbox" data-cy="todo-item">
-      <p-checkbox inputId="binary" [binary]="true" (onChange)="done()" [(ngModel)]="item.done"></p-checkbox>
+      <p-checkbox data-cy="checkbox" inputId="binary" [binary]="true" (onChange)="done()" [(ngModel)]="item.done"></p-checkbox>
 
       <label
         *ngIf="!item.edit"
